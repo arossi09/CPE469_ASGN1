@@ -58,8 +58,8 @@ var stopwords = map[string]struct{}{
 var inverted_index map[string][]string // inverted index of key words to urls
 var crawl_frontier []string            // dynamic list of urls to crawl
 var total_urls_crawled int
-var visited_urls map[string]bool // map for keeping track of visited urls
-var client = &http.Client{}      // used for creating custom http request
+var seen_urls map[string]bool // map for keeping track of seen urls
+var client = &http.Client{}   // used for creating custom http request
 
 // helper for checking error status
 func check(e error) {
@@ -85,9 +85,9 @@ func strip_punctuation(w string) string {
 	for i, r := range rs {
 		if unicode.IsPunct(r) {
 			//check if the chunk is a float
-			if r == '.' && i > 0 && i < len(w)-1 &&
-				unicode.IsDigit(rune(w[i-1])) &&
-				unicode.IsDigit(rune(w[i+1])) {
+			if r == '.' && i > 0 && i < len(rs)-1 &&
+				unicode.IsDigit(rune(rs[i-1])) &&
+				unicode.IsDigit(rune(rs[i+1])) {
 				result.WriteRune(r)
 			}
 			continue
@@ -132,6 +132,10 @@ func process(url_to_process string) error {
 		return err
 	}
 
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("status %d for %s", resp.StatusCode, url_to_process)
+	}
+
 	defer resp.Body.Close()
 
 	//filter only html text
@@ -158,12 +162,16 @@ func process(url_to_process string) error {
 					if err != nil {
 						continue
 					}
-					u = base.ResolveReference(u)
-					//avoid adding already visited urls
-					if _, seen := visited_urls[u.String()]; seen {
+					//skip non http references
+					if u.Scheme != "http" && u.Scheme != "https" && u.Scheme != ""{
 						continue
 					}
-					visited_urls[u.String()] = true
+					u = base.ResolveReference(u)
+					//avoid adding already seen urls
+					if _, seen := seen_urls[u.String()]; seen {
+						continue
+					}
+					seen_urls[u.String()] = true
 					crawl_frontier = append(crawl_frontier, u.String())
 					break
 				}
@@ -205,14 +213,17 @@ func crawl(url string, url_log_file *os.File) {
 		url = crawl_frontier[0]
 		crawl_frontier = crawl_frontier[1:]
 		fmt.Fprint(url_log_file, url, "\n") //writing url each time could slow down maybe buffer?
-		process(url)
+		err := process(url)
+		if err != nil{
+			fmt.Println(err)
+		}
 	}
 }
 
 func main() {
 	crawl_frontier = make([]string, 0, 8)
 	inverted_index = make(map[string][]string)
-	visited_urls = make(map[string]bool)
+	seen_urls = make(map[string]bool)
 	seeded_urls := []string{"https://en.wikipedia.org/wiki/Go_(programming_language)"}
 
 	//log files
