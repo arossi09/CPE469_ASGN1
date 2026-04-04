@@ -12,6 +12,7 @@ import (
 	"os"
 	"strings"
 	"time"
+	"unicode"
 )
 
 const MAX_URLS = 500
@@ -74,14 +75,36 @@ func log_inverted_index(file *os.File) {
 	file.Write(jsonString)
 }
 
+// used for stripping punctuation from word for inverted index
+func strip_punctuation(w string) string {
+	rs := []rune(w)
+	var result strings.Builder
+
+	//loop through each char in the string to check if
+	//its punctuation
+	for i, r := range rs {
+		if unicode.IsPunct(r) {
+			//check if the chunk is a float
+			if r == '.' && i > 0 && i < len(w)-1 &&
+				unicode.IsDigit(rune(w[i-1])) &&
+				unicode.IsDigit(rune(w[i+1])) {
+				result.WriteRune(r)
+			}
+			continue
+		}
+		result.WriteRune(r)
+	}
+	return result.String()
+}
+
 // this function handles lowercasing all characters, removing punctuation, and stop words
 // returns empty string if resulting word is nil
 func filter_words(words string) []string {
 	filtered := make([]string, 0, 8)
 	for w := range strings.FieldsSeq(words) {
 		w = strings.ToLower(w)
-		//strip punctuation
-		if _, found := stopwords[w]; !found {
+		w = strip_punctuation(w)
+		if _, found := stopwords[w]; !found && len(w) > 0 {
 			filtered = append(filtered, w)
 		}
 	}
@@ -120,8 +143,10 @@ func process(url_to_process string) error {
 	//parse the response body with html parsing module
 	doc, err := html.Parse(resp.Body)
 	if err != nil {
-		return nil
+		return err
 	}
+	//to ensure that urls arent added multiple times when multiple occurences of same word
+	seenWords := make(map[string]bool)
 	//descend html tree and filter href attributes (from: https://pkg.go.dev/golang.org/x/net/html#Parse)
 	for n := range doc.Descendants() {
 		// scrape urls
@@ -146,8 +171,18 @@ func process(url_to_process string) error {
 		}
 		// populate the inverted index
 		if n.Type == html.TextNode {
+			//ignore scripts or style sheets
+			if n.Parent != nil && n.Parent.Type == html.ElementNode {
+				if n.Parent.Data == "script" || n.Parent.Data == "style" {
+					continue
+				}
+			}
 			valid_words := filter_words(n.Data)
 			for _, word := range valid_words {
+				if seenWords[word] {
+					continue
+				}
+				seenWords[word] = true
 				inverted_index[word] = append(inverted_index[word], url_to_process)
 			}
 		}
