@@ -1,0 +1,409 @@
+https://doc.rust-lang.org/book/ 0 17.584µs
+
+urlhttps://tokio.rs/#tk-lib-tonic2 1 111.398459ms
+
+urhttps://embassy.dev/l3 2 111.509084ms
+
+https://en.wikipedia.org/wiki/Functor 3 111.553917ms
+
+https://en.wikipedia.org/wiki/Map 4 219.450084ms
+
+https://go.dev/tour/welcome/1 5 236.073417ms
+
+https://github.com/rust-lang/book 6 392.789542ms
+
+https://doc.rust-lang.org/stable/book/ 7 1.103678792s
+
+https://nostarch.com/rust-programming-language-3rd-edition. 8 1.121662709s
+
+https://rust-book.cs.brown.edu 9 1.209322209s
+
+https://w.wiki/4wJS. 10 1.281103584s
+
+https://phabricator.wikimedia.org/T400119. 11 1.358523459s
+
+https://w.wiki/4wJS. 12 1.454803042s
+
+https://phabricator.wikimedia.org/T400119. 12 1.4768175s
+
+https://github.com/features/copilotGitHub 12 1.49805425s
+
+https://github.com/features/sparkGitHub 13 1.868016334s
+
+https://github.com/features/modelsGitHub 14 2.22979125s
+
+https://github.com/mcpMCP 15 2.469624792s
+
+https://github.com/features/actionsActionsAutomate 16 2.766374792s
+
+https://github.com/features/codespacesCodespacesInstant 17 3.006346709s
+
+https://github.com/features/issuesIssuesPlan 18 3.26575375s
+
+https://github.com/features/code-reviewCode 19 3.51559075s
+
+https://github.com/security/advanced-securityGitHub 20 3.722328459s
+
+https://github.com/security/advanced-security/code-securityCode 21 3.923578792s
+
+https://github.com/security/advanced-security/secret-protectionSecret 22 4.522890917s
+
+https://github.com/why-githubWhy 23 4.79275125s
+
+https://docs.github.comDocumentation 24 5.041640709s
+
+https://github.blogBlog 25 5.044091875s
+
+https://github.blog/changelogChangelog 26 5.045079s
+
+https://github.com/marketplaceMarketplace 27 5.354118542s
+
+https://github.com/featuresView 28 5.584224042s
+
+https://github.com/enterpriseEnterprises 29 5.873156959s
+
+https://github.com/teamSmall 30 6.081238s
+
+https://github.com/enterprise/startupsStartups 31 6.329193917s
+
+https://github.com/solutions/industry/nonprofitsNonprofits 32 6.555893667s
+
+https://github.com/solutions/use-case/app-modernizationApp 33 6.893588542s
+
+https://github.com/solutions/use-case/devsecopsDevSecOps 34 7.174483792s
+
+https://github.com/solutions/use-case/devopsDevOps 35 7.480879917s
+
+https://github.com/solutions/use-case/ci-cdCI/CD 36 7.775634292s
+
+https://github.com/solutions/use-caseView 37 8.052158625s
+
+https://github.com/solutions/industry/healthcareHealthcare 38 8.411123792s
+
+https://github.com/solutions/industry/financial-servicesFinancial 39 8.68753975s
+
+https://github.com/solutions/industry/manufacturingManufacturing 40 8.969553834s
+
+https://github.com/solutions/industry/governmentGovernment 41 9.324650042s
+
+https://github.com/solutions/industryView 42 9.613814417s
+
+https://github.com/solutionsView 43 9.876031375s
+
+https://github.com/resources/articles?topic=aiAI 44 10.113488584s
+
+https://github.com/resources/articles?topic=software-developmentSoftware 45 10.649928334s
+
+https://github.com/resources/articles?topic=devopsDevOps 46 11.0588785s
+
+https://github.com/resources/articles?topic=securitySecurity 47 11.4699735s
+
+https://github.com/resources/articlesView 48 11.837214625s
+
+https://github.com/customer-storiesCustomer 49 12.05802025s
+
+https://github.com/resources/eventsEvents 50 12.272109459s
+
+https://github.com/resources/whitepapersEbooks 51 12.490238375s
+
+https://github.com/solutions/executive-insightsBusiness 52 12.69415275s
+
+https://skills.github.comGitHub 53 13.010381584s
+
+https://docs.github.comDocumentation 54 13.012743459s
+
+https://support.github.comCustomer 54 13.013819959s
+
+https://github.com/orgs/community/discussionsCommunity 55 13.015017917s
+
+https://github.com/trust-centerTrust 56 13.261642459s
+
+https://github.com/partnersPartners 57 13.494518667s
+
+https://github.com/resourcesView 58 13.731938334s
+
+https://github.com/sponsorsGitHub 59 13.961737167s
+
+https://securitylab.github.comSecurity 60 14.185290917s
+
+https://maintainers.github.comMaintainer 61 14.18795775s
+
+https://github.com/acceleratorAccelerator 62 14.189315875s
+
+https://stars.github.comGitHub 63 14.424774417s
+
+https://archiveprogram.github.comArchive 64 14.426883084s
+
+https://github.com/topicsTopics 65 14.427892584s
+
+https://github.com/trendingTrending 66 14.671891167s
+
+https://github.com/collectionsCollections 67 14.915129709s
+
+https://github.com/enterpriseEnterprise 68 15.156607959s
+
+https://github.com/security/advanced-securityGitHub 69 15.501175667s
+
+https://github.com/features/copilot/copilot-businessCopilot 69 15.5531595s
+
+https://github.com/premium-supportPremium 70 15.768588792s
+
+https://github.com/pricingPricing 71 16.000988625s
+
+https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntaxSearch 72 16.222861542s
+
+https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntaxdocumentation 73 16.345639125s
+
+https://github.com/rust-lang/book/workflows/CI/badge.svghttps://nostarch.com/rust-programming-language-2nd-editionhttps://doc.rust-lang.org/stable/book/https://doc.rust-lang.org/beta/book/https://doc.rust-lang.org/nightly/book/https://github.com/rust-lang/book/releases#requirementshttps://github.com/rust-lang/mdBookhttps://github.com/rust-lang/rust/blob/HEAD/src/tools/rustbook/Cargo.toml<>#building#contributinghttps://github.com/rust-lang/book/blob/main/CONTRIBUTING.mdhttps://nostarch.com/rust-programming-language-2nd-editionhttps://doc.rust-lang.org/edition-guide/#translationshttps://github.com/rust-lang/book/issues?q=is%3Aopen+is%3Aissue+label%3ATranslationshttps://github.com/rust-lang/mdBook/issues/5#spellcheckinghttps://doc.rust-lang.org/book//topics/rust/topics/book/topics/mdbook/topics/rust-programming-language#readme-ov-file/rust-lang/book/blob/main/./LICENSE-APACHE/rust-lang/book/blob/main/./LICENSE-MIT#contributing-ov-file#security-ov-file/rust-lang/book/activity/rust-lang/book/custom-properties/rust-lang/book/stargazers/rust-lang/book/watchers/rust-lang/book/forks/contact/report-content?content_url=https%3A%2F%2Fgithub.com%2Frust-lang%2Fbook&report=rust-lang+%28user%29/rust-lang/book/releases/rust-lang/book/releases/tag/nostarch-third-printing/rust-lang/book/releases/orgs/rust-lang/packages?repo_name=book 74 16.364519042s
+
+https://github.com© 75 16.600795625s
+
+https://docs.github.com/site-policy/github-terms/github-terms-of-service 76 16.602848625s
+
+https://docs.github.com/site-policy/privacy-policies/github-privacy-statement 77 16.676257084s
+
+https://github.com/security 78 16.727612584s
+
+https://www.githubstatus.com/ 79 17.127291792s
+
+https://github.community/ 80 17.30122025s
+
+https://docs.github.com/ 81 19.166106959s
+
+https://support.github.com?tags=dotcom-footer 82 19.2129385s
+
+https://nostarch.com/rust-programming-language-3rd-edition. 83 19.433947625s
+
+https://rust-book.cs.brown.edu 83 19.463296667s
+
+https://www.cloudflare.com/5xx-error-landing 83 19.486207042s
+
+https://github.com/cognitive-engineering-lab/rust-book 84 19.902934542s
+
+http://doc.rust-lang.org/book/ 85 20.807430959s
+
+https://github.com/cognitive-engineering-lab/rust-book 86 20.873932042s
+
+https://forms.gle/U3jEUkb2fGXykp1DA 86 20.92706875s
+
+https://dl.acm.org/doi/10.1145/3649812 87 21.446258792s
+
+https://dl.acm.org/doi/10.1145/3622841 88 21.645608417s
+
+https://phabricator.wikimedia.org/T400119. 89 21.6768735s
+
+https://github.com/features/sparkGitHub 89 21.698556s
+
+https://github.com/features/modelsGitHub 89 21.753736834s
+
+https://github.com/mcpMCP 89 21.811818167s
+
+https://github.com/features/actionsActionsAutomate 89 21.851523209s
+
+https://github.com/features/codespacesCodespacesInstant 89 21.903244125s
+
+https://github.com/features/issuesIssuesPlan 89 21.95648325s
+
+https://github.com/features/code-reviewCode 89 22.004115375s
+
+https://github.com/security/advanced-securityGitHub 89 22.053657125s
+
+https://github.com/security/advanced-security/code-securityCode 89 22.101555042s
+
+https://github.com/security/advanced-security/secret-protectionSecret 89 22.152354667s
+
+https://github.com/why-githubWhy 89 22.198903334s
+
+https://docs.github.comDocumentation 89 22.255466542s
+
+https://github.blogBlog 89 22.257409417s
+
+https://github.blog/changelogChangelog 89 22.259503917s
+
+https://github.com/marketplaceMarketplace 89 22.313455375s
+
+https://github.com/featuresView 89 22.362585959s
+
+https://github.com/enterpriseEnterprises 89 22.410910125s
+
+https://github.com/teamSmall 89 22.460550125s
+
+https://github.com/features/modelsGitHub 89 22.506000542s
+
+https://github.com/mcpMCP 89 22.560405375s
+
+https://github.com/features/actionsActionsAutomate 89 22.61383725s
+
+https://github.com/features/codespacesCodespacesInstant 89 22.66478475s
+
+https://github.com/features/issuesIssuesPlan 89 22.72062125s
+
+https://github.com/features/code-reviewCode 89 22.770364917s
+
+https://github.com/security/advanced-securityGitHub 89 22.816590959s
+
+https://github.com/security/advanced-security/code-securityCode 89 22.866965209s
+
+https://github.com/security/advanced-security/secret-protectionSecret 89 22.932826292s
+
+https://github.com/why-githubWhy 89 23.016251292s
+
+https://docs.github.comDocumentation 89 23.066799459s
+
+https://github.comhttps://github.blog/ 89 23.068846584s
+
+https://github.blog/changelog/ 90 23.07038325s
+
+https://docs.github.com/ 91 23.103314792s
+
+https://github.com/featuresView 91 23.152806459s
+
+https://github.com/enterpriseEnterprises 91 23.201296959s
+
+https://github.com/teamSmall 91 23.266622834s
+
+https://github.com/enterprise/startupsStartups 91 23.313787042s
+
+https://github.com/solutions/industry/nonprofitsNonprofits 91 23.36390475s
+
+https://github.com/solutions/use-case/app-modernizationApp 91 23.4116565s
+
+https://github.com/solutions/use-case/devsecopsDevSecOps 91 23.467714667s
+
+https://github.com/solutions/use-case/devopsDevOps 91 23.527002209s
+
+https://github.com/solutions/use-case/ci-cdCI/CD 91 23.575558042s
+
+https://github.com/solutions/use-caseView 91 23.626656667s
+
+https://github.com/solutions/industry/healthcareHealthcare 91 23.679826334s
+
+https://github.com/solutions/industry/financial-servicesFinancial 91 23.72862925s
+
+https://github.com/solutions/industry/manufacturingManufacturing 91 23.772728209s
+
+https://github.com/solutions/industry/governmentGovernment 91 23.829897834s
+
+https://github.com/solutions/industryView 91 23.87777975s
+
+https://github.com/solutionsView 91 23.930557042s
+
+https://github.com/resources/articles?topic=aiAI 91 23.982344625s
+
+https://github.com/resources/articles?topic=software-developmentSoftware 91 24.027649375s
+
+https://github.com/resources/articles?topic=devopsDevOps 91 24.072826459s
+
+https://github.com/resources/articles?topic=securitySecurity 91 24.125380459s
+
+https://github.com/resources/articlesView 91 24.181493292s
+
+https://github.com/customer-storiesCustomer 91 24.240416042s
+
+https://github.com/resources/eventsEvents 91 24.32449775s
+
+https://github.com/resources/whitepapersEbooks 91 24.378512875s
+
+https://github.com/solutions/executive-insightsBusiness 91 24.426746417s
+
+https://skills.github.comGitHub 91 24.509398709s
+
+https://github.com/trust-centerTrust 91 24.511004459s
+
+https://github.com/partnersPartners 91 24.566151834s
+
+https://github.com/resourcesView 91 24.619507584s
+
+https://github.com/sponsorsGitHub 91 24.677528375s
+
+https://github.com/partnersPartners 91 24.746440125s
+
+https://github.com/resourcesView 91 24.798094875s
+
+https://github.com/sponsorsGitHub 91 24.884802875s
+
+https://securitylab.github.comSecurity 91 24.969986792s
+
+https://stars.github.comGitHub 91 24.972714709s
+
+https://archiveprogram.github.comArchive 91 24.976107334s
+
+https://github.com/topicsTopics 91 24.977503167s
+
+https://github.com/trendingTrending 91 25.058265084s
+
+https://github.com/collectionsCollections 91 25.117571167s
+
+https://github.com/enterpriseEnterprise 91 25.167756459s
+
+https://github.com/collectionsCollections 91 25.254022667s
+
+https://github.com/enterpriseEnterprise 91 25.308825125s
+
+https://github.com/features/copilot/copilot-businessCopilot 91 25.400095875s
+
+https://github.com/features/copilot/copilot-businessCopilot 91 25.452135709s
+
+https://github.com/premium-supportPremium 91 25.509741209s
+
+https://github.com/pricingPricing 91 25.558268542s
+
+https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntaxSearch 91 25.610543s
+
+https://docs.github.com/site-policy/github-terms/github-terms-of-service 91 25.631151s
+
+https://docs.github.com/site-policy/github-terms/github-terms-of-service 91 25.68422475s
+
+https://support.github.com?tags=dotcom-404—https://githubstatus.com—https://x.com/githubstatus/https://github.com/newsletter 91 25.73657825s
+
+https://github.com/site/privacy) 92 25.894516334s
+
+https://github.com/, 93 26.111265375s
+
+https://github.com/customer-terms/github-data-protection-agreement. 94 26.334315s
+
+https://github.com/security?locale=en-US 95 26.572938084s
+
+https://help.github.com 96 26.763818459s
+
+https://docs.github.com/ 97 27.233255709s
+
+https://codeql.github.com/docs 97 27.276937292s
+
+https://www.cloudflare.com/5xx-error-landing 98 27.462140292s
+
+https://github.com/cognitive-engineering-lab/rust-book 98 27.790507542s
+
+http://doc.rust-lang.org/book/ 98 27.837886417s
+
+https://dash.cloudflare.com/loginhttps://dash.cloudflare.com/sign-up 98 27.89300975s
+
+https://github.com/rust-lang/book/workflows/CI/badge.svghttps://rust-book.cs.brown.edu/https://nostarch.com/rust-programming-language-2nd-editionhttps://doc.rust-lang.org/stable/book/https://doc.rust-lang.org/beta/book/https://doc.rust-lang.org/nightly/book/https://github.com/rust-lang/book/releases#requirementshttps://github.com/rust-lang/mdBookhttps://github.com/rust-lang/rust/blob/master/src/tools/rustbook/Cargo.toml<> 99 28.000467667s
+
+
+
+--- The top 10 entries in the inverted index ---
+
+Kuwait ↦ https://www.githubstatus.com/
+
+Subject ↦ https://docs.github.com/site-policy/github-terms/github-terms-of-service
+
+school ↦ https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+
+213 ↦ https://www.githubstatus.com/
+
+nodes ↦ https://www.githubstatus.com/
+
+better ↦ https://github.com/rust-lang/book/workflows/CI/badge.svghttps://rust-book.cs.brown.edu/https://nostarch.com/rust-programming-language-2nd-editionhttps://doc.rust-lang.org/stable/book/https://doc.rust-lang.org/beta/book/https://doc.rust-lang.org/nightly/book/https://github.com/rust-lang/book/releases#requirementshttps://github.com/rust-lang/mdBookhttps://github.com/rust-lang/rust/blob/master/src/tools/rustbook/Cargo.toml<>
+
+rust-lang/book/issues ↦ https://github.com/rust-lang/book
+
+accessing ↦ https://docs.github.com/site-policy/github-terms/github-terms-of-service
+
+limitation ↦ https://docs.github.com/site-policy/github-terms/github-terms-of-service
+
+incorrectly ↦ https://www.githubstatus.com/
+
+codeql-overview/codeql-changelog ↦ https://codeql.github.com/docs
+
+took 28.235129084s

@@ -1,5 +1,5 @@
-module distributed/asgn1
+module wa1
 
 go 1.26.1
 
-require golang.org/x/net v0.52.0 // indirect
+require github.com/k3a/html2text v1.4.0 // indirect
