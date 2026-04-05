@@ -15,7 +15,8 @@ import (
 	"unicode"
 )
 
-const MAX_URLS = 500
+const MAX_URLS = 100000
+const MAX_FRONTIER = 50000
 
 // map of stop words (from https://gist.github.com/sebleier/554280)
 var stopwords = map[string]struct{}{
@@ -68,6 +69,18 @@ func check(e error) {
 	}
 }
 
+// used for logging runtime information
+func logprog(current_url string, start_time time.Time) {
+	//move to top of status block
+	fmt.Print("\033[5A")
+	//clear everything down from here
+	fmt.Print("\033[J")
+
+	fmt.Printf("Current:            %s\n", current_url)
+	fmt.Printf("len(frontier):      %d\n", len(crawl_frontier))
+	fmt.Printf("Total URLs Crawled: %d\n", total_urls_crawled)
+	fmt.Printf("Elapsed Time:       %s\n", time.Since(start_time).Truncate(time.Second))
+}
 // this function is used to log the word url pairs to a json file
 func log_inverted_index(file *os.File) {
 	jsonString, err := json.MarshalIndent(inverted_index, "", "  ")
@@ -163,16 +176,15 @@ func process(url_to_process string) error {
 						continue
 					}
 					//skip non http references
-					if u.Scheme != "http" && u.Scheme != "https" && u.Scheme != ""{
+					if u.Scheme != "http" && u.Scheme != "https" && u.Scheme != "" {
 						continue
 					}
 					u = base.ResolveReference(u)
-					//avoid adding already seen urls
-					if _, seen := seen_urls[u.String()]; seen {
-						continue
+					//avoid adding already seen urls as well as maxing out frontier
+					if !seen_urls[u.String()] && len(crawl_frontier) < MAX_FRONTIER {
+						seen_urls[u.String()] = true
+						crawl_frontier = append(crawl_frontier, u.String())
 					}
-					seen_urls[u.String()] = true
-					crawl_frontier = append(crawl_frontier, u.String())
 					break
 				}
 			}
@@ -200,33 +212,31 @@ func process(url_to_process string) error {
 
 // given a seed url this function descends into links,
 // processing each page
-func crawl(url string, url_log_file *os.File) {
-	crawl_frontier = append(crawl_frontier, url)
+func crawl(url_log_file *os.File, start_time time.Time) {
 	//crawl urls while descent is possible
-	for len(crawl_frontier) > 0 {
-		if total_urls_crawled >= MAX_URLS {
-			break
-		}
-		fmt.Println(total_urls_crawled, url)
-		total_urls_crawled += 1
+	for len(crawl_frontier) > 0 && total_urls_crawled < MAX_URLS {
 		//pop url from list and process it
-		url = crawl_frontier[0]
+		url := crawl_frontier[0]
 		crawl_frontier = crawl_frontier[1:]
-		fmt.Fprint(url_log_file, url, "\n") //writing url each time could slow down maybe buffer?
+		
+		fmt.Fprint(url_log_file, url, "\n")
+		logprog(url, start_time)
+
+		//process the url
 		err := process(url)
-		if err != nil{
+		if err != nil {
 			fmt.Println(err)
 		}
+		total_urls_crawled += 1
 	}
 }
 
 func main() {
-	crawl_frontier = make([]string, 0, 8)
+	seeded_urls := []string{"https://en.wikipedia.org/wiki/Go_(programming_language)", "https://www.amazon.com/", "https://www.goodreads.com/"}
 	inverted_index = make(map[string][]string)
 	seen_urls = make(map[string]bool)
-	seeded_urls := []string{"https://en.wikipedia.org/wiki/Go_(programming_language)"}
 
-	//log files
+	//create log files
 	url_log_file, err := os.Create("/tmp/crawl_log.txt")
 	check(err)
 	defer url_log_file.Close()
@@ -234,12 +244,22 @@ func main() {
 	check(err)
 	defer inverted_index_json_file.Close()
 
-	t1 := time.Now()
-	//crawl the urls
-	for _, url := range seeded_urls {
-		crawl(url, url_log_file)
+
+	//add seeded urls to crawl_frontier
+	for _, seed := range seeded_urls {
+		if !seen_urls[seed] {
+			seen_urls[seed] = true
+			crawl_frontier = append(crawl_frontier, seed)
+		}
 	}
-	t2 := time.Now()
+
+	//crawl the seeded urls
+	start_time := time.Now()
+	crawl_frontier = seeded_urls
+	crawl(url_log_file, start_time)
+	end_time := time.Now()
+
+	//log files
 	log_inverted_index(inverted_index_json_file)
-	fmt.Printf("Total Time Crawling: %v\n", t2.Sub(t1))
+	fmt.Fprint(url_log_file, end_time.Sub(start_time), "\n") //writing url each time could slow down maybe buffer?
 }

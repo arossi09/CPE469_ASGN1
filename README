@@ -1,0 +1,4 @@
+Usage: go run main.go
+log files created:
+/tmp/crawl_log.txt -> log of all urls crawled
+/tmp/inverted_index_log.json -> json of inverted index
