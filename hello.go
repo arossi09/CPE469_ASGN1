@@ -2,8 +2,10 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"io"
+	"math"
 	"net/http"
 	"os"
 	"regexp"
@@ -25,17 +27,20 @@ func main() {
 	}
 
 	logname := "visited.txt"
+	index_logname := "iidx_log.jsonl"
 
-	crawl(seeds, logname)
+	crawl(seeds, logname, index_logname)
 }
 
 /*
 Essentially do a BFS on url tree
 */
-func crawl(seeds []string, logname string) {
+func crawl(seeds []string, logname string, iidx_logname string) {
 	visited := make(map[string]struct{})                 // visited urls
 	var frontier []string = seeds                        // to visit, the crawl frontier
 	var iidx map[string]string = make(map[string]string) // inverted index
+	power := 1
+
 	log, err := os.Create(logname)
 	if err != nil {
 		fmt.Printf("Could not create log file: %s\n", logname)
@@ -43,11 +48,15 @@ func crawl(seeds []string, logname string) {
 	}
 	defer log.Close()
 
-	// make a file named logname
-	// time in increments
+	iidx_log, err := os.Create(iidx_logname)
+	if err != nil {
+		fmt.Printf("Could not create log file for inverted index %s\n", iidx_logname)
+		return
+	}
+	defer iidx_log.Close()
 
 	exec_start := time.Now()
-	for len(frontier) > 0 && len(visited) < 100 {
+	for len(frontier) > 0 && len(visited) < 110 {
 		time_taken := time.Since(exec_start)
 		logprog(log, frontier[0], len(frontier), len(visited), len(iidx), time_taken)
 
@@ -57,17 +66,36 @@ func crawl(seeds []string, logname string) {
 		for _, d := range discovered {
 			if _, exists := visited[d]; !exists {
 				frontier = append(frontier, d) // a discovered url has not been seen before, so add it to the frontier
-
 				if len(frontier) > MAX_FRONTIER {
 					break
 				}
 			}
 		}
-		frontier = frontier[1:]
+		frontier = frontier[1:] // actually pop the first item
+
+		if len(visited) > int(math.Pow10(power)) {
+			// this will checkpoint the idx when visited passes:
+			// 		10, 100, 1000, ... 10^power
+			checkpoint_iidx(iidx_log, iidx)
+			power++
+		}
+
 	}
-	logiidx(log, iidx, time.Since(exec_start))
+	logiidx(log, iidx, time.Since(exec_start)) // now that everything is done log the inverted index
 }
 
+func checkpoint_iidx(log *os.File, iidx map[string]string) {
+	b, err := json.MarshalIndent(iidx, "", "  ")
+	if err != nil {
+		fmt.Printf("Couldn't log inverted index: %s\n", err)
+	}
+
+	log.WriteString(string(b))
+}
+
+/*
+Function that logs the first 10 entries of a map to the file pointed to by log.
+*/
 func logiidx(log *os.File, iidx map[string]string, time_taken time.Duration) {
 	log.WriteString("\n\n--- The top 10 entries in the inverted index ---\n\n")
 	entries_written := 0
@@ -83,6 +111,10 @@ func logiidx(log *os.File, iidx map[string]string, time_taken time.Duration) {
 	log.WriteString(fmt.Sprintf("took %s\n", time_taken))
 }
 
+/*
+Function that logs the current progress to stdout + log file. The weird control characters in the printf
+statements make it appear like the time + lengths are updating in place.
+*/
 func logprog(log *os.File, name string, flen int, vlen int, ilen int, time_taken time.Duration) {
 	// file loggin
 	log.WriteString(fmt.Sprintf("%s %d %s\n", name, vlen, time_taken))
@@ -105,33 +137,37 @@ iidx : the inverted index mapping words to urls
 returns: the list of urls found when processing seed
 */
 func process(seed string, iidx map[string]string) []string {
-	plain := get_readable(seed)
 	punct := "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
-	urlRegex := `https?://[^\s/$.?#].[^\s]*|www\.[^\s/$.?#].[^\s]*`
-	re := regexp.MustCompile(urlRegex)
+	url_regex := `https?://[^\s/$.?#].[^\s]*|www\.[^\s/$.?#].[^\s]*`
+	re := regexp.MustCompile(url_regex)
+	plain := get_readable(seed)
 	var discovered []string
 
 	scanner := bufio.NewScanner(strings.NewReader(plain))
 	scanner.Split(bufio.ScanWords)
-
 	for scanner.Scan() {
 		t := scanner.Text()
 		matches := re.FindAllString(t, -1)
 		for _, url := range matches {
-			//fmt.Printf("%s\n", url)
-			discovered = append(discovered, url)
+			discovered = append(discovered, url) // found a url
 			continue
 		}
 
-		word := strings.Trim(t, punct)
-		iidx[word] = seed
+		word := strings.Trim(t, punct) // get rid of end punctuation
+		iidx[word] = seed              // update inverted index
 	}
 
 	return discovered
 }
 
+/*
+Gets the human readable text from the url given by seed.
+*/
 func get_readable(seed string) string {
-	resp, err := http.Get(string(seed)) // annoying the typedef doesn't work
+	var client = &http.Client{
+		Timeout: time.Second * 10,
+	}
+	resp, err := client.Get(string(seed)) // annoying the typedef doesn't work
 	if err != nil {
 		return ""
 	}

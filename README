@@ -1,3 +1,5 @@
 
 To run:
     go run hello.go
+
+Logs visited urls in "visited.txt" and inverted index state in "iidx_log.jsonl".
