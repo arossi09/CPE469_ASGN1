@@ -1,5 +1,4 @@
 // Distributed Systems Asgn1
-// used global variables for data structures instead of passing
 package main
 
 import (
@@ -15,7 +14,7 @@ import (
 	"unicode"
 )
 
-const MAX_URLS = 100000
+const MAX_URLS = 60000
 const MAX_FRONTIER = 50000
 
 // map of stop words (from https://gist.github.com/sebleier/554280)
@@ -71,16 +70,23 @@ func check(e error) {
 
 // used for logging runtime information
 func logprog(current_url string, start_time time.Time) {
+	crawled := max(total_urls_crawled, 1)
+	time_left:= time.Duration(
+		float64(time.Since(start_time)) *
+			(float64(MAX_URLS-crawled) / float64(crawled)),
+	)
 	//move to top of status block
-	fmt.Print("\033[5A")
+	fmt.Print("\033[7A")
 	//clear everything down from here
 	fmt.Print("\033[J")
-
-	fmt.Printf("Current:            %s\n", current_url)
-	fmt.Printf("len(frontier):      %d\n", len(crawl_frontier))
-	fmt.Printf("Total URLs Crawled: %d\n", total_urls_crawled)
-	fmt.Printf("Elapsed Time:       %s\n", time.Since(start_time).Truncate(time.Second))
+	fmt.Printf("Current:             %s\n", current_url)
+	fmt.Printf("len(frontier):       %d\n", len(crawl_frontier))
+	fmt.Printf("len(inverted index): %d\n", len(inverted_index))
+	fmt.Printf("Total URLs Crawled:  %d\n", total_urls_crawled)
+	fmt.Printf("Elapsed Time:        %s\n", time.Since(start_time).Truncate(time.Second))
+	fmt.Printf("Projected Time Left: %s\n", time_left)
 }
+
 // this function is used to log the word url pairs to a json file
 func log_inverted_index(file *os.File) {
 	jsonString, err := json.MarshalIndent(inverted_index, "", "  ")
@@ -210,15 +216,14 @@ func process(url_to_process string) error {
 	return nil
 }
 
-// given a seed url this function descends into links,
-// processing each page
+// this function descends into links, processing each page
 func crawl(url_log_file *os.File, start_time time.Time) {
 	//crawl urls while descent is possible
 	for len(crawl_frontier) > 0 && total_urls_crawled < MAX_URLS {
 		//pop url from list and process it
 		url := crawl_frontier[0]
 		crawl_frontier = crawl_frontier[1:]
-		
+
 		fmt.Fprint(url_log_file, url, "\n")
 		logprog(url, start_time)
 
@@ -243,7 +248,6 @@ func main() {
 	inverted_index_json_file, err := os.Create("/tmp/inverted_index_log.json")
 	check(err)
 	defer inverted_index_json_file.Close()
-
 
 	//add seeded urls to crawl_frontier
 	for _, seed := range seeded_urls {

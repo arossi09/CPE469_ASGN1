@@ -2,3 +2,11 @@ Usage: go run main.go
 log files created:
 /tmp/crawl_log.txt -> log of all urls crawled
 /tmp/inverted_index_log.json -> json of inverted index
+
+Run example:
+Current:             https://go.dev/cmd/go/#Run_go_tool_fix_on_packages
+len(frontier):       49999
+len(inverted index): 2601566
+Total URLs Crawled:  59999
+Elapsed Time:        4h45m3s
+Projected Time:      285.068099ms
